@@ -1,0 +1,255 @@
+const glow = document.querySelector('.cursor-glow');
+const cherries = [...document.querySelectorAll('.cherry')];
+
+window.addEventListener('mousemove', (e) => {
+  glow.style.left = `${e.clientX}px`;
+  glow.style.top = `${e.clientY}px`;
+
+  cherries.forEach((cherry, i) => {
+    const strength = 5 + (i % 3) * 3;
+    const x = (e.clientX / window.innerWidth - 0.5) * strength;
+    const y = (e.clientY / window.innerHeight - 0.5) * strength;
+    cherry.style.transform = `translate(${x}px, ${y}px) rotate(${x * 1.2}deg)`;
+  });
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+const menuBtn = document.querySelector('.menu-btn');
+const navLinks = document.querySelector('.nav-links');
+
+menuBtn.addEventListener('click', () => {
+  navLinks.classList.toggle('mobile-open');
+  menuBtn.textContent = navLinks.classList.contains('mobile-open') ? '×' : '☰';
+});
+
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    navLinks.classList.remove('mobile-open');
+    menuBtn.textContent = '☰';
+  });
+});
+
+document.querySelectorAll('.skill-card, .project, .hero-card').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    if (window.innerWidth > 850 && card.classList.contains('hero-card')) {
+      card.style.transform = `rotate(1.4deg) perspective(900px) rotateY(${x * 2}deg) rotateX(${-y * 2}deg)`;
+    }
+  });
+  card.addEventListener('mouseleave', () => {
+    if (card.classList.contains('hero-card')) card.style.transform = 'rotate(1.4deg)';
+  });
+});
+
+
+
+
+
+/* ============================================================
+   CHARVY — REAL PROJECT INTERACTIONS
+   ============================================================ */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    /* --------------------------------------------------------
+       REMOVE ACCIDENTAL DUPLICATE CARS
+       Keep the FIRST actual car only.
+       -------------------------------------------------------- */
+    const cars = [...document.querySelectorAll('[data-real-car]')];
+
+    if (cars.length > 1) {
+        cars.slice(1).forEach(car => car.remove());
+    }
+
+    const car = document.querySelector('[data-real-car]');
+    const rcArea = document.querySelector('[data-rc-car]');
+
+    /* --------------------------------------------------------
+       RC CAR:
+       MOVE THE ACTUAL CAR — NEVER CREATE A SECOND ONE.
+       Curved path → return to exact original position.
+       -------------------------------------------------------- */
+    if (car && rcArea) {
+
+        let driving = false;
+
+        const driveCar = async () => {
+            if (driving) return;
+            driving = true;
+
+            const originalParent = car.parentElement;
+            const originalNext = car.nextSibling;
+
+            const originalRect = car.getBoundingClientRect();
+
+            // Save every style we temporarily change.
+            const saved = {
+                position: car.style.position,
+                left: car.style.left,
+                top: car.style.top,
+                margin: car.style.margin,
+                transform: car.style.transform,
+                zIndex: car.style.zIndex,
+                width: car.style.width,
+                height: car.style.height
+            };
+
+            // Move THE SAME CAR into the viewport.
+            document.body.appendChild(car);
+
+            car.style.position = 'fixed';
+            car.style.left = originalRect.left + 'px';
+            car.style.top = originalRect.top + 'px';
+            car.style.margin = '0';
+            car.style.zIndex = '9999';
+            car.style.width = originalRect.width + 'px';
+            car.style.height = originalRect.height + 'px';
+            car.style.transition = 'none';
+
+            // Keep everything safely inside the viewport.
+            const W = window.innerWidth;
+            const H = window.innerHeight;
+
+            const clampX = x => Math.max(35, Math.min(W - 75, x));
+            const clampY = y => Math.max(70, Math.min(H - 75, y));
+
+            const startX = clampX(originalRect.left);
+            const startY = clampY(originalRect.top);
+
+            // A CURVED route — not a straight line.
+            const points = [
+                [startX, startY],
+
+                [clampX(W * .22), clampY(H * .34)],
+                [clampX(W * .42), clampY(H * .18)],
+                [clampX(W * .66), clampY(H * .30)],
+                [clampX(W * .78), clampY(H * .55)],
+                [clampX(W * .58), clampY(H * .72)],
+                [clampX(W * .30), clampY(H * .64)],
+                [clampX(W * .16), clampY(H * .45)],
+
+                // exact return area
+                [startX, startY]
+            ];
+
+            const distance = (a,b) =>
+                Math.hypot(b[0]-a[0], b[1]-a[1]);
+
+            const sleep = ms =>
+                new Promise(resolve => setTimeout(resolve, ms));
+
+            // Draw tiny temporary traces behind the SAME car.
+            let lastTrace = 0;
+
+            for (let i = 1; i < points.length; i++) {
+
+                const [x1,y1] = points[i-1];
+                const [x2,y2] = points[i];
+
+                const dist = distance(points[i-1], points[i]);
+                const duration = Math.max(420, Math.min(900, dist * 2.2));
+
+                const angle =
+                    Math.atan2(y2-y1, x2-x1) * 180 / Math.PI;
+
+                car.style.transition =
+                    `left ${duration}ms cubic-bezier(.45,.05,.35,1),
+                     top ${duration}ms cubic-bezier(.45,.05,.35,1),
+                     transform ${duration}ms ease`;
+
+                car.style.transform =
+                    `rotate(${angle}deg)`;
+
+                requestAnimationFrame(() => {
+                    car.style.left = x2 + 'px';
+                    car.style.top = y2 + 'px';
+                });
+
+                const traceCount = Math.max(3, Math.floor(dist / 35));
+
+                for (let t = 0; t < traceCount; t++) {
+                    const p = (t + 1) / (traceCount + 1);
+
+                    setTimeout(() => {
+                        const tx = x1 + (x2-x1)*p;
+                        const ty = y1 + (y2-y1)*p;
+
+                        const trace = document.createElement('span');
+                        trace.className = 'rc-trace';
+                        trace.style.left = tx + 'px';
+                        trace.style.top = ty + 'px';
+
+                        document.body.appendChild(trace);
+
+                        setTimeout(() => trace.remove(), 800);
+                    }, duration * p);
+                }
+
+                await sleep(duration);
+            }
+
+            // Put the SAME car back into the exact original DOM location.
+            if (originalNext && originalNext.parentNode === originalParent) {
+                originalParent.insertBefore(car, originalNext);
+            } else {
+                originalParent.appendChild(car);
+            }
+
+            // Restore original CSS.
+            Object.entries(saved).forEach(([key,value]) => {
+                car.style[key] = value;
+            });
+
+            // Ensure it visually snaps exactly back to its parking spot.
+            car.style.transform = '';
+
+            driving = false;
+        };
+
+        rcArea.addEventListener('click', driveCar);
+
+        const hint = rcArea.querySelector('.animation-hint');
+        if (hint) {
+            hint.addEventListener('click', e => {
+                e.stopPropagation();
+                driveCar();
+            });
+        }
+    }
+
+    /* --------------------------------------------------------
+       FACTORY:
+       RODS COME OUT OF THE FACTORY,
+       BUT NEVER GET PUSHED OFF THE SCREEN.
+       -------------------------------------------------------- */
+    document.querySelectorAll('.steel-visual').forEach(factoryArea => {
+
+        // Prevent multiple accidental handlers.
+        if (factoryArea.dataset.factoryReady === '1') return;
+        factoryArea.dataset.factoryReady = '1';
+
+        factoryArea.addEventListener('click', () => {
+
+            factoryArea.classList.remove('steel-active');
+
+            // restart animation cleanly
+            void factoryArea.offsetWidth;
+
+            factoryArea.classList.add('steel-active');
+
+            setTimeout(() => {
+                factoryArea.classList.remove('steel-active');
+            }, 2200);
+        });
+    });
+
+});

@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Charvy — Electrical & Electronics Engineering student portfolio." />
+  <title>Charvy — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="cursor-glow"></div>
+  <div class="cherry-field" aria-hidden="true">
+    <span class="cherry c1">●</span><span class="cherry c2">●</span><span class="cherry c3">●</span>
+    <span class="cherry c4">●</span><span class="cherry c5">●</span><span class="cherry c6">●</span>
+  </div>
+
+  <header class="nav-wrap">
+    <nav class="nav">
+      <a href="#home" class="logo">4V<span>.</span></a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        
+        <a href="#projects">Projects</a>
+        <a href="#journey">Journey</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <a class="nav-cta" href="#contact">Let's connect <span>↗</span></a>
+      <button class="menu-btn" aria-label="Open menu">☰</button>
+    </nav>
+  </header>
+
+  <main id="home">
+    <section class="hero section">
+      <div class="hero-copy reveal">
+        <p class="eyebrow"><span class="dot"></span> Electrical & Electronics Engineering</p>
+        <h1>Hi, I'm <span>Charvy</span>.<br> I build with <em>curiosity.</em></h1>
+        <p class="hero-text">
+          Engineering student at NIT Nagaland, interested in electrical systems,
+          robotics, cybersecurity and turning ideas into practical projects.
+        </p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-dark">View my work <span>↗</span></a>
+          <a href="#about" class="text-link">More about me ↓</a>
+        </div>
+      </div>
+
+      <div class="hero-card reveal delay-1">
+        <div class="card-top">
+          <span>PORTFOLIO / 26</span>
+          <span class="card-mark">4V</span>
+        </div>
+        <div class="portrait-placeholder">
+          <div class="initials">4V</div>
+          <div class="orbit orbit-1"></div>
+          <div class="orbit orbit-2"></div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <strong>Charvy</strong>
+            <span>EEE • NIT Nagaland</span>
+          </div>
+          <span class="availability"><i></i> Open to opportunities</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="marquee">
+      <div class="marquee-track">
+        <span>ENGINEERING</span><b>✦</b><span>ROBOTICS</span><b>✦</b>
+        <span>CYBERSECURITY</span><b>✦</b><span>MATLAB</span><b>✦</b>
+        <span>SIMULINK</span><b>✦</b><span>ENGINEERING</span><b>✦</b>
+        <span>ROBOTICS</span><b>✦</b><span>CYBERSECURITY</span><b>✦</b>
+        <span>MATLAB</span><b>✦</b><span>SIMULINK</span><b>✦</b>
+      </div>
+    </section>
+
+    <section id="about" class="section about">
+      <div class="section-label reveal">01 / About me</div>
+      <div class="about-content">
+        <div class="about-title reveal">
+          <p class="kicker">A little more than a résumé</p>
+          <h2>An engineer with a <em>creative side.</em></h2>
+        </div>
+        <div class="about-text reveal delay-1">
+          <p class="lead">
+            I'm Charvy, an Electrical & Electronics Engineering student at
+            <strong>NIT Nagaland</strong>, currently building my foundation across
+            electrical engineering, programming, robotics and emerging technology.
+          </p>
+          <p>
+            I enjoy understanding how things work and then getting my hands on them —
+            whether that's a circuit, a motor-driven project, a simulation, a data
+            pipeline or a cybersecurity problem. I'm especially drawn to projects
+            where hardware and software meet.
+          </p>
+          <p>
+            Beyond academics, I'm naturally creative and socially active. I enjoy
+            communication, writing, speaking, visual work and taking responsibility
+            in team environments. My school years included awards in story writing,
+            essay writing, speech and debate, and animation, which shaped the
+            communication and creative side I bring into engineering.
+          </p>
+          <p>
+            Right now, I'm focused on becoming a well-rounded engineer — technically
+            curious, practical, collaborative and always willing to learn something
+            outside the obvious path.
+          </p>
+        </div>
+      </div>
+
+      <div class="stats reveal">
+        <div><strong>8.9</strong><span>Current CGPA</span></div>
+        <div><strong>EEE</strong><span>B.Tech • 2024–2028</span></div>
+        <div><strong>04+</strong><span>Hands-on projects / training</span></div>
+        <div><strong class="cherry-text">4V</strong><span>Personal portfolio</span></div>
+      </div>
+    </section>
+
+    
+
+    
+
+    <section id="journey" class="section journey">
+      <div class="section-label reveal">04 / Journey</div>
+      <div class="journey-grid">
+        <div class="reveal">
+          <p class="kicker">Education</p>
+          <h2>Building the<br><em class="cherry-text">foundation.</em></h2>
+          <div class="grade-note">
+            <div><strong>8.9</strong><span>CGPA</span></div>
+            <div><strong>82%</strong><span>12th Grade</span></div>
+            <div><strong>91%</strong><span>10th Grade</span></div>
+          </div>
+        </div>
+        <div class="timeline reveal delay-1">
+          <div class="timeline-item">
+            <span>2024 — 2028</span>
+            <div><h3>National Institute of Technology Nagaland</h3><p>B.Tech — Electrical & Electronics Engineering</p><b>CGPA: 8.9</b></div>
+          </div>
+          <div class="timeline-item">
+            <span>2022 — 2024</span>
+            <div><h3>V.S. St. Johns Higher Secondary School</h3><p>12th Grade — 82%</p></div>
+          </div>
+          <div class="timeline-item">
+            <span>2022</span>
+            <div><h3>V.S. St. Johns Higher Secondary School</h3><p>10th Grade — 91%</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="mini-section reveal">
+          <p class="kicker">Leadership</p>
+          <ul>
+            <li>Assistant Secretary — Chroma & Publications Club</li>
+            <li>Class Representative — EEE Branch</li>
+            
+<li>Member — IEEE</li>
+<li>Volunteer — IEEE Conference, NIT Nagaland</li>
+<li>Volunteer — Science Exhibition, NIT Nagaland</li>
+
+          </ul>
+        </div>
+        <div class="mini-section reveal delay-1">
+          <p class="kicker">Workshops & exposure</p>
+          <ul>
+            <li>Next Generation Technology for Energy Sustainability & Climate Resilience — ANRF, NIT Silchar</li>
+            <li>3D Printing Workshop — NIT Nagaland</li>
+            <li>Cybersecurity Threat Detection — ongoing training</li>
+          </ul>
+        </div>
+      </div>
+
+      </section>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section id="projects" class="section projects clean-projects">
+
+  <div class="section-label reveal">03 / PROJECTS</div>
+
+  <div class="projects-heading reveal">
+    <p class="kicker">Things I've built &amp; explored.</p>
+    <h2>A few things<br><em>I've actually made.</em></h2>
+  </div>
+
+
+  <!-- =====================================================
+       01 — CYBERSECURITY
+       ===================================================== -->
+
+  <article class="clean-project cyber-clean reveal">
+
+    <div class="clean-project-content">
+
+      <div class="project-number">
+        01 <span>/ AI + CYBERSECURITY</span>
+      </div>
+
+      <div class="project-status">
+        <i></i> ONGOING
+      </div>
+
+      <h3>
+        AI-Based Cybersecurity<br>
+        Threat Detection
+      </h3>
+
+      <p class="project-description">
+        An AI-assisted system that analyses network-log information
+        and classifies activity as
+        <b>Benign</b>, <b>Suspicious</b> or <b>Malicious</b>.
+      </p>
+
+      <div class="guidance">
+        <span>UNDER GUIDANCE</span>
+        <strong>Dr. D. K. Das</strong>
+        <small>Associate Professor · Department of EEE</small>
+      </div>
+
+      <div class="project-tags">
+        <span>XGBoost</span>
+        <span>FastAPI</span>
+        <span>Flutter</span>
+        <span>Python</span>
+      </div>
+
+    </div>
+
+
+    <div class="cyber-clean-visual">
+
+      <div class="clean-radar">
+
+        <div class="radar-grid-clean"></div>
+
+        <div class="clean-ring cr1"></div>
+        <div class="clean-ring cr2"></div>
+        <div class="clean-ring cr3"></div>
+
+        <div class="clean-cross horizontal"></div>
+        <div class="clean-cross vertical"></div>
+
+        <div class="clean-sweep"></div>
+
+        <span class="clean-threat t1"></span>
+        <span class="clean-threat t2"></span>
+        <span class="clean-threat t3"></span>
+
+        <div class="clean-radar-core">
+          <i></i>
+        </div>
+
+      </div>
+
+      <div class="scan-text">
+        <b>LIVE SCAN</b>
+        <span>NETWORK THREAT MONITOR</span>
+      </div>
+
+    </div>
+
+  </article>
+
+
+  <!-- =====================================================
+       02 — RC CAR
+       ===================================================== -->
+
+  <article class="clean-project small-clean-project reveal">
+
+    <div class="clean-project-content">
+
+      <div class="project-number">
+        02 <span>/ ROBOTICS</span>
+      </div>
+
+      <h3>RC Car</h3>
+
+      <p class="project-description">
+        A hands-on robotics project exploring movement,
+        motor control, wiring and embedded-system concepts.
+      </p>
+
+      <div class="project-tags">
+        <span>Robotics</span>
+        <span>Motor Control</span>
+      </div>
+
+    </div>
+
+
+    <div class="rc-clean-visual" data-rc-clean>
+
+      <div class="rc-road"></div>
+
+      <div class="rc-parking"></div>
+
+      <div class="car-smoke-trail" data-car-smoke></div>
+
+      <!-- THE ONLY CAR -->
+      <div class="clean-car" data-clean-car>
+
+        <div class="car-top"></div>
+        <div class="car-window"></div>
+        <div class="car-body"></div>
+
+        <span class="car-wheel wheel-left"></span>
+        <span class="car-wheel wheel-right"></span>
+
+        <span class="car-light"></span>
+
+      </div>
+
+      <button class="tap-label" data-car-button>
+        TAP 🚗
+      </button>
+
+    </div>
+
+  </article>
+
+
+  <!-- =====================================================
+       03 — 3D PRINTING
+       ===================================================== -->
+
+  <article class="clean-project small-clean-project reveal">
+
+    <div class="clean-project-content">
+
+      <div class="project-number">
+        03 <span>/ DIGITAL FABRICATION</span>
+      </div>
+
+      <h3>3D Printing Projects</h3>
+
+      <p class="project-description">
+        Exploring digital fabrication and physical prototyping —
+        turning digital ideas into real objects.
+      </p>
+
+      <div class="project-tags">
+        <span>3D Printing</span>
+        <span>Prototyping</span>
+      </div>
+
+    </div>
+
+
+    <div class="printer-clean-visual" data-printer>
+
+      <div class="printer">
+
+        <div class="printer-top"></div>
+
+        <div class="printer-frame">
+
+          <div class="printer-window">
+            <div class="print-bed"></div>
+
+            <!-- cherry appears here -->
+            <div class="printed-cherry" data-printed-cherry>
+              <span>🍒</span>
+            </div>
+
+          </div>
+
+          <div class="printer-nozzle"></div>
+
+        </div>
+
+        <div class="printer-base"></div>
+
+      </div>
+
+      <div class="printer-status">
+        <span data-print-status>TAP TO PRINT</span>
+      </div>
+
+    </div>
+
+  </article>
+
+
+  <!-- =====================================================
+       04 — VIZAG STEEL
+       ===================================================== -->
+
+  <article class="clean-project small-clean-project reveal">
+
+    <div class="clean-project-content">
+
+      <div class="project-number">
+        04 <span>/ INDUSTRIAL EXPOSURE</span>
+      </div>
+
+      <h3>Vizag Steel Plant</h3>
+
+      <p class="project-description">
+        Four-week engineering internship with exposure to
+        electrical systems, industrial operations, heavy equipment,
+        maintenance and safety.
+      </p>
+
+      <div class="project-tags">
+        <span>Electrical</span>
+        <span>Industry</span>
+        <span>Safety</span>
+      </div>
+
+    </div>
+
+
+    <div class="factory-clean-visual" data-factory>
+
+      <div class="factory-ground"></div>
+
+      <div class="clean-factory">
+
+        <div class="factory-roof-clean"></div>
+
+        <div class="factory-building">
+
+          <div class="factory-door"></div>
+
+          <div class="factory-window fw1"></div>
+          <div class="factory-window fw2"></div>
+
+        </div>
+
+        <div class="factory-chimney"></div>
+
+      </div>
+
+
+      <!-- rods remain contained -->
+      <div class="steel-rods-clean">
+
+        <span></span>
+        <span></span>
+        <span></span>
+
+      </div>
+
+
+      <button class="tap-label factory-label">
+        TAP 🏭
+      </button>
+
+    </div>
+
+  </article>
+
+</section>
+
+
+    <section id="journey" class="section journey">
+      <div class="section-label reveal">04 / Journey</div>
+      <div class="journey-grid">
+        <div class="reveal">
+          <p class="kicker">Education</p>
+          <h2>Building the<br><em class="cherry-text">foundation.</em></h2>
+          <div class="grade-note">
+            <div><strong>8.9</strong><span>CGPA</span></div>
+            <div><strong>82%</strong><span>12th Grade</span></div>
+            <div><strong>91%</strong><span>10th Grade</span></div>
+          </div>
+        </div>
+        <div class="timeline reveal delay-1">
+          <div class="timeline-item">
+            <span>2024 — 2028</span>
+            <div><h3>National Institute of Technology Nagaland</h3><p>B.Tech — Electrical & Electronics Engineering</p><b>CGPA: 8.9</b></div>
+          </div>
+          <div class="timeline-item">
+            <span>2022 — 2024</span>
+            <div><h3>V.S. St. Johns Higher Secondary School</h3><p>12th Grade — 82%</p></div>
+          </div>
+          <div class="timeline-item">
+            <span>2022</span>
+            <div><h3>V.S. St. Johns Higher Secondary School</h3><p>10th Grade — 91%</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="mini-section reveal">
+          <p class="kicker">Leadership</p>
+          <ul>
+            <li>Assistant Secretary — Chroma & Publications Club</li>
+            <li>Class Representative — EEE Branch</li>
+            
+<li>Member — IEEE</li>
+<li>Volunteer — IEEE Conference, NIT Nagaland</li>
+<li>Volunteer — Science Exhibition, NIT Nagaland</li>
+
+          </ul>
+        </div>
+        <div class="mini-section reveal delay-1">
+          <p class="kicker">Workshops & exposure</p>
+          <ul>
+            <li>Next Generation Technology for Energy Sustainability & Climate Resilience — ANRF, NIT Silchar</li>
+            <li>3D Printing Workshop — NIT Nagaland</li>
+            <li>Cybersecurity Threat Detection — ongoing training</li>
+          </ul>
+        </div>
+      </div>
+
+      </section>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section id="leadership" class="rotating-leadership">
+
+  <div class="rotating-heading">
+
+    <span>04 / LEADERSHIP</span>
+
+    <h2>
+      The things I<br>
+      <em>take responsibility for.</em>
+    </h2>
+
+    <p>
+      Different roles, different people,
+      same idea — show up and contribute.
+    </p>
+
+  </div>
+
+
+  <div class="leadership-carousel" data-leadership>
+
+    <article class="lead-card lead-active">
+      <div class="lead-card-top">
+        <span>01</span>
+        <span>CLUB</span>
+      </div>
+      <div class="lead-icon">🫡</div>
+      <h3>Assistant Secretary</h3>
+      <p>Chroma & Publications Club</p>
+    </article>
+
+
+    <article class="lead-card">
+      <div class="lead-card-top">
+        <span>02</span>
+        <span>CLASS</span>
+      </div>
+      <div class="lead-icon">📋</div>
+      <h3>Class Representative</h3>
+      <p>EEE Branch</p>
+    </article>
+
+
+    <article class="lead-card">
+      <div class="lead-card-top">
+        <span>03</span>
+        <span>IEEE</span>
+      </div>
+      <div class="lead-icon">⚡</div>
+      <h3>Member</h3>
+      <p>IEEE</p>
+    </article>
+
+
+    <article class="lead-card">
+      <div class="lead-card-top">
+        <span>04</span>
+        <span>VOLUNTEER</span>
+      </div>
+      <div class="lead-icon">🎤</div>
+      <h3>IEEE Conference</h3>
+      <p>Volunteer • NIT Nagaland</p>
+    </article>
+
+
+    <article class="lead-card">
+      <div class="lead-card-top">
+        <span>05</span>
+        <span>VOLUNTEER</span>
+      </div>
+      <div class="lead-icon">🔬</div>
+      <h3>Science Exhibition</h3>
+      <p>Volunteer • NIT Nagaland</p>
+    </article>
+
+  </div>
+
+
+  <div class="leadership-controls">
+
+    <button type="button" data-lead-prev>←</button>
+
+    <span>
+      <b data-lead-count>01</b> / 05
+    </span>
+
+    <button type="button" data-lead-next>→</button>
+
+  </div>
+
+</section>
+
+<section id="workshops" class="beautiful-exposure">
+
+  <div class="exposure-top">
+
+    <span>05 / WORKSHOPS + EXPOSURE</span>
+
+    <h2>
+      Things I went<br>
+      <em>looking to learn.</em>
+    </h2>
+
+    <p>
+      A few experiences that expanded what I could
+      see beyond regular coursework.
+    </p>
+
+  </div>
+
+
+  <div class="exposure-cards">
+
+    <article class="exposure-big-card">
+
+      <div class="tiny-cherry cherry-one">🍒</div>
+
+      <span class="exposure-no">01</span>
+
+      <div class="exposure-emoji">🌱</div>
+
+      <small>ANRF • NIT SILCHAR</small>
+
+      <h3>
+        Next Generation Technology for Energy
+        Sustainability & Climate Resilience
+      </h3>
+
+      <p>
+        Workshop exposure around emerging technologies
+        for sustainable energy and climate resilience.
+      </p>
+
+      <b>06 — 10 SEPTEMBER</b>
+
+    </article>
+
+
+    <article class="exposure-card">
+
+      <div class="tiny-cherry cherry-two">🍒</div>
+
+      <span class="exposure-no">02</span>
+
+      <div class="exposure-emoji">🖨️</div>
+
+      <small>NIT NAGALAND</small>
+
+      <h3>3D Printing Workshop</h3>
+
+      <p>
+        Hands-on exposure to digital fabrication,
+        modelling and physical prototyping.
+      </p>
+
+      <b>WORKSHOP</b>
+
+    </article>
+
+
+    <article class="exposure-card">
+
+      <div class="tiny-cherry cherry-three">🍒</div>
+
+      <span class="exposure-no">03</span>
+
+      <div class="exposure-emoji">🛡️</div>
+
+      <small>ONGOING TRAINING</small>
+
+      <h3>Cybersecurity Threat Detection</h3>
+
+      <p>
+        Ongoing learning around threat detection,
+        network logs and AI-assisted classification.
+      </p>
+
+      <b>ONGOING</b>
+
+    </article>
+
+  </div>
+
+</section>
+
+<section id="proud" class="proud-section">
+
+  <div class="proud-heading">
+
+    <span>06 / LITTLE WINS</span>
+
+    <h2>
+      A few things<br>
+      <em>I'm proud of.</em>
+    </h2>
+
+  </div>
+
+
+  <div class="proud-grid">
+
+    <article>
+      <span>01</span>
+      <div>🍒</div>
+      <h3>Story writing & narration</h3>
+      <p>First prize • CBSE secondary school</p>
+    </article>
+
+
+    <article>
+      <span>02</span>
+      <div>✍️</div>
+      <h3>Essay competition</h3>
+      <p>First prize • Airport Authority of Vijayawada</p>
+    </article>
+
+
+    <article>
+      <span>03</span>
+      <div>🎙️</div>
+      <h3>Speech & debate</h3>
+      <p>First prize • Interschool competition</p>
+    </article>
+
+
+    <article>
+      <span>04</span>
+      <div>🎬</div>
+      <h3>Animation competition</h3>
+      <p>Third prize • School competition</p>
+    </article>
+
+  </div>
+
+</section>
+
+<section id="interests" class="charvy-interests-fixed">
+
+  <div class="interests-heading-fixed">
+
+    <span>07 / OFF THE CLOCK</span>
+
+    <h2>
+      Things that make<br>
+      <em>me, me.</em>
+    </h2>
+
+  </div>
+
+
+  <div class="interest-track-fixed">
+
+    <article>
+      <span>🎧</span>
+      <small>01</small>
+      <h3>Music</h3>
+      <p>Listening to music and discovering new sounds.</p>
+    </article>
+
+    <article>
+      <span>✈️</span>
+      <small>02</small>
+      <h3>Travelling</h3>
+      <p>Exploring places, people and new perspectives.</p>
+    </article>
+
+    <article>
+      <span>🎤</span>
+      <small>03</small>
+      <h3>Public Speaking</h3>
+      <p>Presentations, speeches and storytelling.</p>
+    </article>
+
+    <article>
+      <span>✍️</span>
+      <small>04</small>
+      <h3>Writing</h3>
+      <p>Stories, essays and creative expression.</p>
+    </article>
+
+    <article>
+      <span>🎨</span>
+      <small>05</small>
+      <h3>Visual Creativity</h3>
+      <p>Design, visuals and experimenting with aesthetics.</p>
+    </article>
+
+    <article>
+      <span>🔎</span>
+      <small>06</small>
+      <h3>Exploring</h3>
+      <p>Trying different things and learning along the way.</p>
+    </article>
+
+  </div>
+
+</section>
+<section id="contact" class="contact">
+      <div class="contact-inner section">
+        <p class="eyebrow reveal"><span class="dot"></span> Have an idea?</p>
+        <h2 class="reveal">Let's make something<br><em>interesting.</em></h2>
+        <p class="contact-copy reveal delay-1">
+          I'm always interested in learning, collaborating and working on projects
+          that sit at the intersection of engineering and creativity.
+        </p>
+        <a class="email reveal delay-2" href="mailto:charvydarshan1429@gmail.com">charvydarshan1429@gmail.com <span>↗</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© 2026 Charvy</span>
+    <span>Electrical & Electronics Engineering</span>
+    <a href="#home">Back to top ↑</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

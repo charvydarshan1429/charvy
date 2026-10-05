@@ -1,0 +1,566 @@
+
+/* ============================================================
+   CHARVY PORTFOLIO — CLEAN INTERACTIONS
+   ============================================================ */
+
+
+/* ============================================================
+   CURSOR GLOW
+   ============================================================ */
+
+const glow = document.querySelector('.cursor-glow');
+
+window.addEventListener('mousemove', (e) => {
+
+    if (glow) {
+        glow.style.left = `${e.clientX}px`;
+        glow.style.top = `${e.clientY}px`;
+    }
+
+});
+
+
+/* ============================================================
+   REVEAL
+   ============================================================ */
+
+const observer = new IntersectionObserver((entries) => {
+
+    entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+
+    });
+
+}, { threshold: 0.12 });
+
+
+document.querySelectorAll('.reveal').forEach(el => {
+    observer.observe(el);
+});
+
+
+/* ============================================================
+   MOBILE MENU
+   ============================================================ */
+
+const menuBtn = document.querySelector('.menu-btn');
+const navLinks = document.querySelector('.nav-links');
+
+if (menuBtn && navLinks) {
+
+    menuBtn.addEventListener('click', () => {
+
+        navLinks.classList.toggle('mobile-open');
+
+        menuBtn.textContent =
+            navLinks.classList.contains('mobile-open')
+                ? '×'
+                : '☰';
+
+    });
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+
+        link.addEventListener('click', () => {
+
+            navLinks.classList.remove('mobile-open');
+
+            menuBtn.textContent = '☰';
+
+        });
+
+    });
+
+}
+
+
+/* ============================================================
+   HERO TILT
+   ============================================================ */
+
+const tiltCard = document.querySelector('[data-tilt]');
+
+if (tiltCard) {
+
+    tiltCard.addEventListener('mousemove', (e) => {
+
+        if (window.innerWidth < 760) return;
+
+        const r = tiltCard.getBoundingClientRect();
+
+        const x =
+            (e.clientX - r.left) / r.width - .5;
+
+        const y =
+            (e.clientY - r.top) / r.height - .5;
+
+        tiltCard.style.transform =
+            `perspective(1000px)
+             rotateY(${x * 3}deg)
+             rotateX(${-y * 3}deg)
+             translateY(-3px)`;
+
+    });
+
+    tiltCard.addEventListener('mouseleave', () => {
+
+        tiltCard.style.transform = '';
+
+    });
+
+}
+
+
+/* ============================================================
+   REGISTRATION NUMBER COPY
+   ============================================================ */
+
+document.querySelectorAll('.copy-id').forEach(button => {
+
+    button.addEventListener('click', async () => {
+
+        const value = button.dataset.copy;
+
+        try {
+
+            await navigator.clipboard.writeText(value);
+
+            const old = button.textContent;
+
+            button.textContent = 'COPIED ✓';
+
+            setTimeout(() => {
+                button.textContent = old;
+            }, 1300);
+
+        } catch {
+
+            button.textContent = 'SELECT + COPY';
+
+            setTimeout(() => {
+                button.textContent = 'COPY ↗';
+            }, 1300);
+
+        }
+
+    });
+
+});
+
+
+/* ============================================================
+   🚗 RC CAR
+   ============================================================
+
+   IMPORTANT:
+   - only ONE car exists
+   - car NEVER leaves its card
+   - only transform changes
+   - curved route
+   - returns to exact starting point
+   */
+
+const rcArea = document.querySelector('[data-rc-clean]');
+const car = document.querySelector('[data-clean-car]');
+
+if (rcArea && car) {
+
+    let driving = false;
+
+    const trace = (x, y) => {
+
+        const dot = document.createElement('span');
+
+        dot.className = 'rc-trace-clean';
+
+        dot.style.left =
+            `calc(50% + ${x}px)`;
+
+        dot.style.top =
+            `calc(50% + ${y}px)`;
+
+        rcArea.appendChild(dot);
+
+        setTimeout(() => {
+            dot.remove();
+        }, 850);
+
+    };
+
+
+    const driveCar = () => {
+
+        if (driving) return;
+
+        driving = true;
+
+        /*
+         * Curved route.
+         * Every coordinate is relative to the car's
+         * original center position.
+         */
+        const route = [
+
+            { x: 0,   y: 0,   r: 0 },
+
+            { x: -45, y: -28, r: -25 },
+
+            { x: -82, y: 5,   r: 25 },
+
+            { x: -60, y: 48,  r: 72 },
+
+            { x: -5,  y: 58,  r: 100 },
+
+            { x: 55,  y: 38,  r: 145 },
+
+            { x: 76,  y: -4,  r: 185 },
+
+            { x: 55,  y: -48, r: 230 },
+
+            { x: 5,   y: -57, r: 270 },
+
+            { x: -48, y: -35, r: 315 },
+
+            /*
+             * EXACT ORIGINAL POSITION
+             */
+            { x: 0,   y: 0,   r: 360 }
+
+        ];
+
+
+        let i = 0;
+
+
+        const next = () => {
+
+            if (i >= route.length) {
+
+                car.style.transition =
+                    'transform .45s ease';
+
+                car.style.transform =
+                    'translate3d(-50%,-50%,0) rotate(0deg)';
+
+                setTimeout(() => {
+
+                    car.style.transition = '';
+
+                    driving = false;
+
+                }, 500);
+
+                return;
+            }
+
+
+            const point = route[i];
+
+
+            car.style.transition =
+                'transform .48s cubic-bezier(.45,.05,.35,1)';
+
+
+            car.style.transform =
+                `translate3d(
+                    calc(-50% + ${point.x}px),
+                    calc(-50% + ${point.y}px),
+                    0
+                )
+                rotate(${point.r}deg)`;
+
+
+            trace(point.x, point.y);
+
+
+            i++;
+
+            setTimeout(next, 500);
+
+        };
+
+
+        next();
+
+    };
+
+
+    rcArea.addEventListener('click', driveCar);
+
+}
+
+
+/* ============================================================
+   🖨️ 3D PRINTER
+   ============================================================ */
+
+const printerArea = document.querySelector('[data-printer]');
+
+if (printerArea) {
+
+    let printing = false;
+
+    printerArea.addEventListener('click', () => {
+
+        if (printing) return;
+
+        printing = true;
+
+        printerArea.classList.remove('printing');
+
+        void printerArea.offsetWidth;
+
+        printerArea.classList.add('printing');
+
+        const status =
+            printerArea.querySelector('[data-print-status]');
+
+        if (status) {
+            status.textContent = 'PRINTING 🍒';
+        }
+
+
+        setTimeout(() => {
+
+            if (status) {
+                status.textContent = 'PRINT COMPLETE ✓';
+            }
+
+        }, 850);
+
+
+        setTimeout(() => {
+
+            printerArea.classList.remove('printing');
+
+            if (status) {
+                status.textContent = 'TAP TO PRINT';
+            }
+
+            printing = false;
+
+        }, 2500);
+
+    });
+
+}
+
+
+/* ============================================================
+   🏭 FACTORY
+   ============================================================ */
+
+const factory = document.querySelector('[data-factory]');
+
+if (factory) {
+
+    let active = false;
+
+    factory.addEventListener('click', () => {
+
+        if (active) return;
+
+        active = true;
+
+        factory.classList.remove('factory-active');
+
+        void factory.offsetWidth;
+
+        factory.classList.add('factory-active');
+
+
+        setTimeout(() => {
+
+            factory.classList.remove('factory-active');
+
+            active = false;
+
+        }, 2300);
+
+    });
+
+}
+
+
+
+/* ============================================================
+   👥 LEADERSHIP — REAL ROTATING CARDS
+   ============================================================ */
+
+(function initLeadershipRotation() {
+
+    const section =
+        document.querySelector('[data-leadership]') ||
+        document.querySelector('#leadership');
+
+    if (!section) {
+        console.log('Leadership section not found.');
+        return;
+    }
+
+    const cards = Array.from(
+        section.querySelectorAll('.lead-card')
+    );
+
+    if (!cards.length) {
+        console.log('No leadership cards found.');
+        return;
+    }
+
+    let current = 0;
+    let timer = null;
+
+
+    /* --------------------------------------------------------
+       Find controls
+       -------------------------------------------------------- */
+
+    const prev =
+        section.querySelector('[data-lead-prev]') ||
+        section.querySelector('.lead-prev') ||
+        section.querySelector('[data-prev]');
+
+    const next =
+        section.querySelector('[data-lead-next]') ||
+        section.querySelector('.lead-next') ||
+        section.querySelector('[data-next]');
+
+    const count =
+        section.querySelector('[data-lead-count]') ||
+        section.querySelector('.lead-count');
+
+
+    /* --------------------------------------------------------
+       Show card
+       -------------------------------------------------------- */
+
+    function showCard(index) {
+
+        current =
+            (index + cards.length) % cards.length;
+
+        cards.forEach((card, i) => {
+
+            card.classList.remove('lead-active');
+
+            if (i === current) {
+                card.classList.add('lead-active');
+            }
+
+        });
+
+        if (count) {
+            count.textContent =
+                String(current + 1).padStart(2,'0')
+                + ' / '
+                + String(cards.length).padStart(2,'0');
+        }
+
+    }
+
+
+    /* --------------------------------------------------------
+       Buttons
+       -------------------------------------------------------- */
+
+    if (prev) {
+
+        prev.addEventListener('click', (event) => {
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            showCard(current - 1);
+
+            restartTimer();
+
+        });
+
+    }
+
+
+    if (next) {
+
+        next.addEventListener('click', (event) => {
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            showCard(current + 1);
+
+            restartTimer();
+
+        });
+
+    }
+
+
+    /* --------------------------------------------------------
+       Auto rotation
+       -------------------------------------------------------- */
+
+    function startTimer() {
+
+        if (cards.length <= 1) return;
+
+        timer = setInterval(() => {
+
+            showCard(current + 1);
+
+        }, 4500);
+
+    }
+
+
+    function restartTimer() {
+
+        if (timer) {
+            clearInterval(timer);
+        }
+
+        startTimer();
+
+    }
+
+
+    /* --------------------------------------------------------
+       Pause when mouse is over leadership section
+       -------------------------------------------------------- */
+
+    section.addEventListener('mouseenter', () => {
+
+        if (timer) {
+            clearInterval(timer);
+            timer = null;
+        }
+
+    });
+
+
+    section.addEventListener('mouseleave', () => {
+
+        if (!timer) {
+            startTimer();
+        }
+
+    });
+
+
+    /* --------------------------------------------------------
+       INITIAL STATE
+       -------------------------------------------------------- */
+
+    showCard(0);
+    startTimer();
+
+    console.log(
+        '✓ Leadership rotation active:',
+        cards.length,
+        'cards'
+    );
+
+})();
+

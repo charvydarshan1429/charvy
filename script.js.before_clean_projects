@@ -1,0 +1,197 @@
+const glow = document.querySelector('.cursor-glow');
+const cherries = [...document.querySelectorAll('.cherry')];
+
+window.addEventListener('mousemove', (e) => {
+  glow.style.left = `${e.clientX}px`;
+  glow.style.top = `${e.clientY}px`;
+
+  cherries.forEach((cherry, i) => {
+    const strength = 5 + (i % 3) * 3;
+    const x = (e.clientX / window.innerWidth - 0.5) * strength;
+    const y = (e.clientY / window.innerHeight - 0.5) * strength;
+    cherry.style.transform = `translate(${x}px, ${y}px) rotate(${x * 1.2}deg)`;
+  });
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+const menuBtn = document.querySelector('.menu-btn');
+const navLinks = document.querySelector('.nav-links');
+
+menuBtn.addEventListener('click', () => {
+  navLinks.classList.toggle('mobile-open');
+  menuBtn.textContent = navLinks.classList.contains('mobile-open') ? '×' : '☰';
+});
+
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    navLinks.classList.remove('mobile-open');
+    menuBtn.textContent = '☰';
+  });
+});
+
+document.querySelectorAll('.skill-card, .project, .hero-card').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    if (window.innerWidth > 850 && card.classList.contains('hero-card')) {
+      card.style.transform = `rotate(1.4deg) perspective(900px) rotateY(${x * 2}deg) rotateX(${-y * 2}deg)`;
+    }
+  });
+  card.addEventListener('mouseleave', () => {
+    if (card.classList.contains('hero-card')) card.style.transform = 'rotate(1.4deg)';
+  });
+});
+
+
+
+
+
+
+
+/* ============================================================
+   CHARVY — STABLE PROJECT INTERACTIONS
+   ============================================================ */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    /* ========================================================
+       RC CAR
+       ======================================================== */
+
+    const rcArea = document.querySelector("[data-rc-car]");
+    const car = rcArea?.querySelector("[data-real-car]");
+
+    if (rcArea && car) {
+
+        let moving = false;
+
+        const drive = () => {
+
+            if (moving) return;
+
+            moving = true;
+
+            /*
+             * The car NEVER leaves its project card.
+             * We calculate a curved path using percentages.
+             */
+
+            const path = [
+                { x: 0,   y: 0,   r: 0 },
+                { x: -55, y: -25, r: -22 },
+                { x: -75, y: 35,  r: 65 },
+                { x: -20, y: 65,  r: 110 },
+                { x: 55,  y: 40,  r: 160 },
+                { x: 72,  y: -25, r: 210 },
+                { x: 25,  y: -65, r: 260 },
+                { x: -35, y: -45, r: 315 },
+                { x: 0,   y: 0,   r: 360 }
+            ];
+
+            let index = 0;
+
+            const moveNext = () => {
+
+                if (index >= path.length) {
+
+                    // EXACT ORIGINAL POSITION.
+                    car.style.transition =
+                        "transform 450ms cubic-bezier(.22,.8,.25,1)";
+
+                    car.style.transform =
+                        "translate3d(0,0,0) rotate(0deg)";
+
+                    setTimeout(() => {
+                        car.style.transition = "";
+                        moving = false;
+                    }, 500);
+
+                    return;
+                }
+
+                const p = path[index];
+
+                car.style.transition =
+                    "transform 520ms cubic-bezier(.45,.05,.35,1)";
+
+                car.style.transform =
+                    `translate3d(${p.x}px, ${p.y}px, 0) rotate(${p.r}deg)`;
+
+                /*
+                 * Tiny trace appears underneath the car.
+                 * It stays inside the project card.
+                 */
+                createTrace(p.x, p.y);
+
+                index++;
+
+                setTimeout(moveNext, 540);
+            };
+
+            moveNext();
+        };
+
+        const createTrace = (x, y) => {
+
+            const trace = document.createElement("span");
+
+            trace.className = "rc-trace";
+
+            trace.style.position = "absolute";
+            trace.style.left = "calc(50% + " + x + "px)";
+            trace.style.top = "calc(50% + " + y + "px)";
+            trace.style.transform = "translate(-50%,-50%)";
+
+            rcArea.appendChild(trace);
+
+            setTimeout(() => {
+                trace.remove();
+            }, 750);
+        };
+
+        rcArea.addEventListener("click", drive);
+
+        const hint = rcArea.querySelector(".animation-hint");
+
+        if (hint) {
+            hint.addEventListener("click", e => {
+                e.stopPropagation();
+                drive();
+            });
+        }
+    }
+
+
+    /* ========================================================
+       FACTORY — RODS COME OUT BUT STAY INSIDE CARD
+       ======================================================== */
+
+    document.querySelectorAll(".steel-visual").forEach(factory => {
+
+        if (factory.dataset.ready === "yes") return;
+
+        factory.dataset.ready = "yes";
+
+        factory.addEventListener("click", () => {
+
+            factory.classList.remove("steel-active");
+
+            void factory.offsetWidth;
+
+            factory.classList.add("steel-active");
+
+            setTimeout(() => {
+                factory.classList.remove("steel-active");
+            }, 2300);
+        });
+    });
+
+});

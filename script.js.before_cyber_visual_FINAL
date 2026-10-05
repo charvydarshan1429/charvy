@@ -1,0 +1,581 @@
+const glow = document.querySelector('.cursor-glow');
+const cherries = [...document.querySelectorAll('.cherry')];
+
+window.addEventListener('mousemove', (e) => {
+  glow.style.left = `${e.clientX}px`;
+  glow.style.top = `${e.clientY}px`;
+
+  cherries.forEach((cherry, i) => {
+    const strength = 5 + (i % 3) * 3;
+    const x = (e.clientX / window.innerWidth - 0.5) * strength;
+    const y = (e.clientY / window.innerHeight - 0.5) * strength;
+    cherry.style.transform = `translate(${x}px, ${y}px) rotate(${x * 1.2}deg)`;
+  });
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+const menuBtn = document.querySelector('.menu-btn');
+const navLinks = document.querySelector('.nav-links');
+
+menuBtn.addEventListener('click', () => {
+  navLinks.classList.toggle('mobile-open');
+  menuBtn.textContent = navLinks.classList.contains('mobile-open') ? '×' : '☰';
+});
+
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    navLinks.classList.remove('mobile-open');
+    menuBtn.textContent = '☰';
+  });
+});
+
+document.querySelectorAll('.skill-card, .project, .hero-card').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    if (window.innerWidth > 850 && card.classList.contains('hero-card')) {
+      card.style.transform = `rotate(1.4deg) perspective(900px) rotateY(${x * 2}deg) rotateX(${-y * 2}deg)`;
+    }
+  });
+  card.addEventListener('mouseleave', () => {
+    if (card.classList.contains('hero-card')) card.style.transform = 'rotate(1.4deg)';
+  });
+});
+
+
+
+
+
+
+
+/* ============================================================
+   CHARVY — STABLE PROJECT INTERACTIONS
+   ============================================================ */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    /* ========================================================
+       RC CAR
+       ======================================================== */
+
+    const rcArea = document.querySelector("[data-rc-car]");
+    const car = rcArea?.querySelector("[data-real-car]");
+
+    if (rcArea && car) {
+
+        let moving = false;
+
+        const drive = () => {
+
+            if (moving) return;
+
+            moving = true;
+
+            /*
+             * The car NEVER leaves its project card.
+             * We calculate a curved path using percentages.
+             */
+
+            const path = [
+                { x: 0,   y: 0,   r: 0 },
+                { x: -55, y: -25, r: -22 },
+                { x: -75, y: 35,  r: 65 },
+                { x: -20, y: 65,  r: 110 },
+                { x: 55,  y: 40,  r: 160 },
+                { x: 72,  y: -25, r: 210 },
+                { x: 25,  y: -65, r: 260 },
+                { x: -35, y: -45, r: 315 },
+                { x: 0,   y: 0,   r: 360 }
+            ];
+
+            let index = 0;
+
+            const moveNext = () => {
+
+                if (index >= path.length) {
+
+                    // EXACT ORIGINAL POSITION.
+                    car.style.transition =
+                        "transform 450ms cubic-bezier(.22,.8,.25,1)";
+
+                    car.style.transform =
+                        "translate3d(0,0,0) rotate(0deg)";
+
+                    setTimeout(() => {
+                        car.style.transition = "";
+                        moving = false;
+                    }, 500);
+
+                    return;
+                }
+
+                const p = path[index];
+
+                car.style.transition =
+                    "transform 520ms cubic-bezier(.45,.05,.35,1)";
+
+                car.style.transform =
+                    `translate3d(${p.x}px, ${p.y}px, 0) rotate(${p.r}deg)`;
+
+                /*
+                 * Tiny trace appears underneath the car.
+                 * It stays inside the project card.
+                 */
+                createTrace(p.x, p.y);
+
+                index++;
+
+                setTimeout(moveNext, 540);
+            };
+
+            moveNext();
+        };
+
+        const createTrace = (x, y) => {
+
+            const trace = document.createElement("span");
+
+            trace.className = "rc-trace";
+
+            trace.style.position = "absolute";
+            trace.style.left = "calc(50% + " + x + "px)";
+            trace.style.top = "calc(50% + " + y + "px)";
+            trace.style.transform = "translate(-50%,-50%)";
+
+            rcArea.appendChild(trace);
+
+            setTimeout(() => {
+                trace.remove();
+            }, 750);
+        };
+
+        rcArea.addEventListener("click", drive);
+
+        const hint = rcArea.querySelector(".animation-hint");
+
+        if (hint) {
+            hint.addEventListener("click", e => {
+                e.stopPropagation();
+                drive();
+            });
+        }
+    }
+
+
+    /* ========================================================
+       FACTORY — RODS COME OUT BUT STAY INSIDE CARD
+       ======================================================== */
+
+    document.querySelectorAll(".steel-visual").forEach(factory => {
+
+        if (factory.dataset.ready === "yes") return;
+
+        factory.dataset.ready = "yes";
+
+        factory.addEventListener("click", () => {
+
+            factory.classList.remove("steel-active");
+
+            void factory.offsetWidth;
+
+            factory.classList.add("steel-active");
+
+            setTimeout(() => {
+                factory.classList.remove("steel-active");
+            }, 2300);
+        });
+    });
+
+});
+
+
+
+/* ============================================================
+   🚗 RC CAR — ACTUAL VISIBLE CAR ANIMATION
+   ============================================================ */
+
+(function () {
+
+    const area =
+        document.querySelector('[data-rc-clean]');
+
+    if (!area) {
+        console.log('RC area not found');
+        return;
+    }
+
+
+    const car =
+        area.querySelector('[data-clean-car]');
+
+
+    if (!car) {
+        console.log('RC car not found');
+        return;
+    }
+
+
+    /*
+     * Prevent another listener from starting
+     * another animation.
+     */
+    let moving = false;
+
+
+    /*
+     * The car starts at CENTER.
+     *
+     * It goes mainly horizontally.
+     *
+     * There is NO 360° rotation.
+     */
+    const route = [
+
+        { x: 0,    y: 0,   angle: 0 },
+
+        { x: -45,  y: -4,  angle: -2 },
+
+        { x: -90,  y: -2,  angle: 0 },
+
+        { x: -130, y: 7,   angle: 3 },
+
+        { x: -105, y: 20,  angle: 5 },
+
+        { x: -55,  y: 27,  angle: 4 },
+
+        { x: 5,    y: 25,  angle: 1 },
+
+        { x: 65,   y: 16,  angle: -2 },
+
+        { x: 110,  y: 3,   angle: -4 },
+
+        { x: 128,  y: -12, angle: -2 },
+
+        { x: 105,  y: -25, angle: 2 },
+
+        { x: 65,   y: -29, angle: 3 },
+
+        { x: 20,   y: -22, angle: 2 },
+
+        { x: 0,    y: 0,   angle: 0 }
+
+    ];
+
+
+    function createSmoke(x, y) {
+
+        const smoke =
+            document.createElement('span');
+
+        smoke.className =
+            'car-smoke-real';
+
+
+        smoke.style.left =
+            `calc(50% + ${x - 22}px)`;
+
+
+        smoke.style.top =
+            `calc(50% + ${y + 7}px)`;
+
+
+        area.appendChild(smoke);
+
+
+        setTimeout(() => {
+
+            smoke.remove();
+
+        }, 950);
+
+    }
+
+
+    function drive() {
+
+        if (moving) return;
+
+        moving = true;
+
+
+        /*
+         * Reset car before beginning.
+         */
+        car.style.setProperty(
+            'left',
+            '50%',
+            'important'
+        );
+
+        car.style.setProperty(
+            'top',
+            '50%',
+            'important'
+        );
+
+        car.style.setProperty(
+            'transform',
+            'translate(-50%, -50%) rotate(0deg)',
+            'important'
+        );
+
+
+        let step = 1;
+
+
+        function nextStep() {
+
+            if (step >= route.length) {
+
+                /*
+                 * Exact original parking position.
+                 */
+                car.style.setProperty(
+                    'left',
+                    '50%',
+                    'important'
+                );
+
+                car.style.setProperty(
+                    'top',
+                    '50%',
+                    'important'
+                );
+
+                car.style.setProperty(
+                    'transform',
+                    'translate(-50%, -50%) rotate(0deg)',
+                    'important'
+                );
+
+
+                setTimeout(() => {
+
+                    moving = false;
+
+                }, 600);
+
+
+                return;
+            }
+
+
+            const p = route[step];
+
+
+            /*
+             * REAL POSITION CHANGE.
+             *
+             * We use left/top, not just transform.
+             */
+            car.style.setProperty(
+                'transition',
+                'left 0.52s cubic-bezier(.45,.05,.35,1), ' +
+                'top 0.52s cubic-bezier(.45,.05,.35,1), ' +
+                'transform 0.52s ease',
+                'important'
+            );
+
+
+            car.style.setProperty(
+                'left',
+                `calc(50% + ${p.x}px)`,
+                'important'
+            );
+
+
+            car.style.setProperty(
+                'top',
+                `calc(50% + ${p.y}px)`,
+                'important'
+            );
+
+
+            /*
+             * Only tiny steering angles.
+             * NEVER upside down.
+             */
+            car.style.setProperty(
+                'transform',
+                `translate(-50%, -50%) rotate(${p.angle}deg)`,
+                'important'
+            );
+
+
+            /*
+             * Smoke behind car.
+             */
+            createSmoke(p.x, p.y);
+
+
+            if (step % 2 === 0) {
+
+                setTimeout(() => {
+
+                    createSmoke(
+                        p.x - 8,
+                        p.y + 5
+                    );
+
+                }, 180);
+
+            }
+
+
+            step++;
+
+            setTimeout(
+                nextStep,
+                550
+            );
+
+        }
+
+
+        nextStep();
+
+    }
+
+
+    /*
+     * Clicking the visual OR TAP button starts it.
+     */
+    area.addEventListener(
+        'click',
+        drive
+    );
+
+
+    const button =
+        area.querySelector('[data-car-button]');
+
+
+    if (button) {
+
+        button.addEventListener(
+            'click',
+            (event) => {
+
+                event.stopPropagation();
+
+                drive();
+
+            }
+        );
+
+    }
+
+
+    console.log('🚗 RC CAR READY');
+
+})();
+
+
+/* ============================================================
+   🖨️ 3D PRINTER — CUTE CHERRY
+   ============================================================ */
+
+(function () {
+
+    const printer =
+        document.querySelector('[data-printer]');
+
+
+    if (!printer) return;
+
+
+    let printing = false;
+
+
+    printer.addEventListener(
+        'click',
+        () => {
+
+            if (printing) return;
+
+            printing = true;
+
+
+            printer.classList.remove(
+                'printing'
+            );
+
+
+            void printer.offsetWidth;
+
+
+            printer.classList.add(
+                'printing'
+            );
+
+
+            const status =
+                printer.querySelector(
+                    '[data-print-status]'
+                );
+
+
+            if (status) {
+
+                status.textContent =
+                    'PRINTING ✦';
+
+            }
+
+
+            setTimeout(() => {
+
+                if (status) {
+
+                    status.textContent =
+                        'PRINTING · 60%';
+
+                }
+
+            }, 450);
+
+
+            setTimeout(() => {
+
+                if (status) {
+
+                    status.textContent =
+                        'PRINT COMPLETE ✦';
+
+                }
+
+            }, 1000);
+
+
+            setTimeout(() => {
+
+                printer.classList.remove(
+                    'printing'
+                );
+
+
+                if (status) {
+
+                    status.textContent =
+                        'TAP TO PRINT';
+
+                }
+
+
+                printing = false;
+
+            }, 2600);
+
+        }
+    );
+
+})();
+
